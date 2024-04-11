@@ -59,7 +59,6 @@ public class SelenideTests2 {
     }
 
 
-
     @Test(description = "softAssertValidation", priority = 3, groups = {"Selenide 2"})
     public void softAssertTest() {
         open(Constants.site2);

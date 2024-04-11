@@ -30,8 +30,7 @@ public class SelenideTests1 {
         assertFalse(div1Texts.contains(Constants.mockingText));
         SelenideElement demandVideos=$(byText(Constants.videoAccess));
     }
-
-
+    
     @Test(description = "IndividualOffersValidation",priority = 2, groups = {"Selenide 1"})
     public void validateIndividualOffers(){
         WebDriverManager.chromedriver().setup();
