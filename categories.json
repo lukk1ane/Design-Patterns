@@ -1,0 +1,20 @@
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "matchedStatuses": ["failed"]
+    },
+    {
+      "name": "Category 2",
+      "matchedStatuses": ["broken", "failed"]
+    },
+    {
+      "name": "Category 3",
+      "matchedStatuses": ["passed"]
+    },
+    {
+      "name": "Category with Trace Regex",
+      "traceRegex": ".*CustomTrace.*"
+    }
+  ]
+}

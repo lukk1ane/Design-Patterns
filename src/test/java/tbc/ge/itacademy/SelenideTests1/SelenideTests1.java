@@ -1,7 +1,12 @@
 package tbc.ge.itacademy.SelenideTests1;
 
 import com.codeborne.selenide.*;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import ge.tbc.itacademy.data.Constants;
+import ge.tbc.itacademy.listeners.CustomTestListener;
+import ge.tbc.itacademy.util.ModdedAllureSelenide;
+import io.qameta.allure.*;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -15,9 +20,14 @@ import static org.testng.Assert.assertFalse;
 
 
 
+@Listeners({CustomTestListener.class})
 @Test (groups = {"Parent Group"})
 public class SelenideTests1 {
 
+    @Feature("Bundle Offers")
+    @Epic("Validation")
+    @Story("Validate Bundle Offers")
+    @Severity(SeverityLevel.NORMAL)
     @Test(description = "OffersValidation",priority = 1, groups = {"Selenide 1"})
     public void validateBundleOffers(){
         WebDriverManager.chromedriver().setup();
@@ -30,8 +40,12 @@ public class SelenideTests1 {
         assertFalse(div1Texts.contains(Constants.mockingText));
         SelenideElement demandVideos=$(byText(Constants.videoAccess));
     }
-    
-    @Test(description = "IndividualOffersValidation",priority = 2, groups = {"Selenide 1"})
+
+    @Feature("Individual Offers")
+    @Epic("Validation")
+    @Story("Validate Individual Offers")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Validate Individual Offers", priority = 2, groups = {"Selenide 1"})
     public void validateIndividualOffers(){
         WebDriverManager.chromedriver().setup();
         open(Constants.site1);
@@ -59,4 +73,9 @@ public class SelenideTests1 {
         div2.$$x(Constants.h2SpansSupXpath).should(exactTexts(Constants.dollarSign, Constants.reactPrice));
     }
 
+
+    public void setUp() {
+        SelenideLogger.addListener("AllureSelenide", new ModdedAllureSelenide());
+
+    }
 }

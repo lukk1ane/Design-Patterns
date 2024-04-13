@@ -1,8 +1,15 @@
 package tbc.ge.itacademy.SelenideTests2;
 
 import com.codeborne.selenide.*;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import ge.tbc.itacademy.data.Constants;
+import ge.tbc.itacademy.listeners.CustomTestListener;
+import ge.tbc.itacademy.util.ModdedAllureSelenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -16,14 +23,16 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
-
-
-@Test (groups = {"Parent Group"})
+@Listeners({CustomTestListener.class})
+@Test(groups = {"Parent Group"})
 public class SelenideTests2 {
     SoftAssert sfa = new SoftAssert();
 
-    @Test(description = "orderMechanicsValidation", priority = 1, groups = {"Selenide 2"})
-    public void  validateOrderMechanics(){
+    @Epic("Order Mechanics")
+    @Feature("Validation")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Order Mechanics Validation", priority = 1, groups = {"Selenide 2"})
+    public void validateOrderMechanics(){
         open(Constants.site1);
         $(byText(Constants.pricing)).click();
 
@@ -37,8 +46,10 @@ public class SelenideTests2 {
         sfa.assertAll();
     }
 
-    @Test(description = "chainedLocatorValidation", priority = 2, groups = {"Selenide 2"})
-
+    @Epic("Chained Locators")
+    @Feature("Validation")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Chained Locators Validation", priority = 2, groups = {"Selenide 2"})
     public void chainedLocatorsTest() {
         open(Constants.site2);
 
@@ -58,11 +69,12 @@ public class SelenideTests2 {
         }
     }
 
-
-    @Test(description = "softAssertValidation", priority = 3, groups = {"Selenide 2"})
+    @Epic("Soft Assertions")
+    @Feature("Validation")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Soft Assertions Validation", priority = 3, groups = {"Selenide 2"})
     public void softAssertTest() {
         open(Constants.site2);
-
         ElementsCollection books = $$("div.rt-tr-group")
                 .filterBy(text(Constants.bookPublisher));
 
@@ -77,9 +89,14 @@ public class SelenideTests2 {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(bookTitles.size(), 10, "Size is not equal to 10");
 
-
         String firstBook = String.valueOf(bookTitles.get(0));
         softAssert.assertEquals(firstBook, "Learning JavaScript Design Patterns");
         softAssert.assertAll();
     }
+
+    public void setUp() {
+        SelenideLogger.addListener("AllureSelenide", new ModdedAllureSelenide());
+
+    }
+
 }
