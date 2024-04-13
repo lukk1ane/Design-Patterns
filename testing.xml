@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SelenideCrossBrowserSuite" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="ge.tbc.itacademy.listeners.CustomTestListener"/>
+    </listeners>
+    <suite-files>
+        <suite-file path=""/>
+
+    </suite-files>
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tbc.ge.itacademy.SelenideTests1.SelenideTests1"/>
+            <class name="tbc.ge.itacademy.SelenideTests2.SelenideTests2"/>
+
+        </classes>
+    </test>
+    <test name="FireFoxTest">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tbc.ge.itacademy.SelenideTests1.SelenideTests1"/>
+            <class name="tbc.ge.itacademy.SelenideTests2.SelenideTests2"/>
+        </classes>
+    </test>
+    <test name="EdgeTest">
+        <parameter name="browser" value="Edge"/>
+        <classes>
+            <class name="tbc.ge.itacademy.SelenideTests1.SelenideTests1"/>
+            <class name="tbc.ge.itacademy.SelenideTests2.SelenideTests2"/>
+        </classes>
+    </test>
+</suite>
